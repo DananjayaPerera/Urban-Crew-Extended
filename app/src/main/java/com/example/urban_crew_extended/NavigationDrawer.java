@@ -10,16 +10,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-<<<<<<< HEAD
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
-=======
-import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
->>>>>>> origin/master
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,18 +32,12 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
-<<<<<<< HEAD
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import hotchemi.android.rate.AppRate;
 
-=======
-import java.util.ArrayList;
-import java.util.List;
-
->>>>>>> origin/master
 public class NavigationDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Toolbar toolbar;
@@ -56,11 +45,8 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     View HView;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
-<<<<<<< HEAD
     private long backPressedTime;
     private Toast backToast;
-=======
->>>>>>> origin/master
 
     private int[] mImages = new int[]{
 
@@ -78,15 +64,8 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
     ViewPager viewPager;
     Adapter adapter;
     List<Model> models;
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/master
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,11 +73,8 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.navigation_drawer);
 
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> origin/master
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -189,13 +165,9 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
         drawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-<<<<<<< HEAD
         AppRate.with(NavigationDrawer.this).setInstallDays(0).setLaunchTimes(3).setRemindInterval(2)
                 .monitor();
         AppRate.showRateDialogIfMeetsConditions(NavigationDrawer.this);
-=======
-
->>>>>>> origin/master
     }
 
     @Override
@@ -216,12 +188,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
                 Toast.makeText(this,"Settings Clicked",Toast.LENGTH_SHORT).show();
                 break;
 
-<<<<<<< HEAD
-=======
-            case R.id.delete_id:
-                Toast.makeText(this,"Delete Clicked",Toast.LENGTH_SHORT).show();
-                break;
->>>>>>> origin/master
 
             case android.R.id.home:
                 finish();
@@ -257,7 +223,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
 
         }
 
-<<<<<<< HEAD
         else if (id == R.id.share_id){
 
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -275,8 +240,6 @@ public class NavigationDrawer extends AppCompatActivity implements NavigationVie
             startActivity(new Intent(NavigationDrawer.this, AboutUs.class));
         }
 
-=======
->>>>>>> origin/master
         else if (id == R.id.Logout_id){
 
             firebaseAuth.signOut();
