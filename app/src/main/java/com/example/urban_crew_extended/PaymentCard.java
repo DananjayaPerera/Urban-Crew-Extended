@@ -1,6 +1,8 @@
 package com.example.urban_crew_extended;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,7 +33,7 @@ public class PaymentCard extends AppCompatActivity {
         final CardForm cardForm = findViewById(R.id.alto_CardForm);
 
         desc = findViewById(R.id.payment_amount);
-        desc.setText("Rs 6000.00 LKR");
+        desc.setText("Rs 6000.00");
 
         btnPay = findViewById(R.id.btn_pay);
         btnPay.setText(String.format("Payer %s", desc.getText()));
@@ -46,6 +48,8 @@ public class PaymentCard extends AppCompatActivity {
                 cardCCV = card.getCVC().toString();
 
                 SendInput();
+                Intent intent = new Intent(PaymentCard.this,MyTrips.class);
+                startActivity(intent);
             }
         });
     }
@@ -54,7 +58,14 @@ public class PaymentCard extends AppCompatActivity {
 
         DatabaseReference AltoCard = firebaseDatabase.getReference(firebaseAuth.getUid()).child("AltoK10")
                 .child("Payment Options").child("Card Payment").child("Card Details");
+
+        DatabaseReference AltoCard2 = firebaseDatabase.getReference(firebaseAuth.getUid()).child("AltoK10")
+                .child("Booking Information").child("Payment");
+
         CardProfile cardProfile = new CardProfile(cardName,cardNumber,cardExpirationDate,cardCCV);
         AltoCard.setValue(cardProfile);
+
+        String card = "Card";
+        AltoCard2.setValue(card);
     }
 }

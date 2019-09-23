@@ -51,11 +51,16 @@ public class PaymentSelection extends AppCompatActivity {
 
     Button button_create_pdf;
     Button button_pay_later;
+    FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_selection);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
 
         button_pay_later = findViewById(R.id.alto_card);
 
@@ -69,33 +74,23 @@ public class PaymentSelection extends AppCompatActivity {
         });
 
         button_create_pdf = findViewById(R.id.alto_payLater);
+        button_create_pdf.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        Dexter.withActivity(this)
-                .withPermission(permission.WRITE_EXTERNAL_STORAGE)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                createPDFFILE(Common.getAppPath(PaymentSelection.this)+"PaymentInvoice.pdf");
+                sendUserInput();
+            }
+        });
+    }
 
-                        button_create_pdf.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+    private void sendUserInput() {
 
-                                createPDFFILE(Common.getAppPath(PaymentSelection.this)+"test_pdf.pdf");
-                            }
-                        });
-                    }
+        String payment = "Pay Later";
+        DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid()).child("AltoK10")
+                .child("Booking Information").child("Payment");
+        databaseReference.setValue(payment);
 
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-
-                    }
-                })
-                .check();
     }
 
     private void createPDFFILE(String path) {
@@ -227,7 +222,7 @@ public class PaymentSelection extends AppCompatActivity {
 
         try {
 
-            PrintDocumentAdapter printDocumentAdapter = new pdfDocumentAdapter(PaymentSelection.this,Common.getAppPath(PaymentSelection.this)+"test_pdf.pdf");
+            PrintDocumentAdapter printDocumentAdapter = new pdfDocumentAdapter(PaymentSelection.this,Common.getAppPath(PaymentSelection.this)+"PaymentInvoice.pdf");
             printManager.print("Document",printDocumentAdapter,new PrintAttributes.Builder().build());
         } catch (Exception ex){
 
